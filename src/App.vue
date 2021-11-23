@@ -40,8 +40,6 @@ import { documentation } from "../package";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
-import { useI18n } from "vue-i18n";
-
 export default {
   components: {
     AppHeader,
@@ -50,12 +48,6 @@ export default {
   data() {
     return {
       documentation: documentation,
-    };
-  },
-  setup() {
-    const { t } = useI18n();
-    return {
-      t,
     };
   },
 };

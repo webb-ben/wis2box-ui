@@ -6,7 +6,7 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 
 // i18n
-import { loadLocale } from "../locales/i18n";
+// import { loadLocale } from "../locales/i18n";
 // import { createVueI18nAdapter } from 'vuetify/locale/adapters'
 // import { useI18n } from 'vue-i18n'
 
@@ -30,7 +30,6 @@ export default createVuetify({
     defaultLocale: "en",
     fallbackLocale: "en",
     globalInjection: true,
-    messages: loadLocale(),
   },
   // locale: createVueI18nAdapter({ // Pending https://github.com/vuetifyjs/vuetify/issues/14408
   //   i18n,
