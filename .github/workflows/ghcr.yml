@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - main
+      - t
 
 env:
   REGISTRY: ghcr.io
@@ -53,8 +54,9 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           # Use Docker `latest` tag convention
           [ "$VERSION" == "main" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID >> $GITHUB_ENV
-          echo VERSION=$VERSION >> $GITHUB_ENV
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          echo FULL_IMAGE_NAME=$IMAGE_ID:$VERSION >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v2.7.0
@@ -62,6 +64,8 @@ jobs:
           context: ./
           file: ./Dockerfile
           platforms: linux/arm64, linux/amd64
+          cache-from: type=registry,ref=${{ env.FULL_IMAGE_NAME }}
+          cache-to: type=inline
           push: true
           tags: |
-            ${{ env.IMAGE_ID }}:${{ env.VERSION }}
+            ${{ env.FULL_IMAGE_NAME }}
