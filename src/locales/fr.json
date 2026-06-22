@@ -3,33 +3,76 @@
   "code": "fr",
   "navigation": {
     "home": "Page d'accueil",
+    "datasets": "Ensemble de données ",
     "services": "Services de données",
     "data": "Données",
+    "external-data-link": "Lien externe vers les données",
+    "license": "Licence",
     "documentation": "Documentation"
+  },
+  "util": {
+    "token": "Jeton",
+    "cancel": "Annuler",
+    "save": "Conserver",
+    "close": "Fermer",
+    "settings": "Paramètres",
+    "cluster": "Grappe"
   },
   "footer": {
     "powered_by": "Alimenté par"
   },
   "messages": {
-    "welcome": "Bienvenue à wis 2.0 dans une boîte!",
-    "no_observations_in_collection": " n'a pas d'observations dans la collection: "
+    "welcome": "Bienvenue à WIS 2.0 in a box!",
+    "no_observations_in_collection": " n'a pas d'observations dans la collection ",
+    "authorized": "Autorisée",
+    "not_authorized": "L'ensemble de données nécessite une autorisation ; Ajouter un jeton d'autorisationn",
+    "no_linked_collections": "n'a pas de collections liées",
+    "how_to_link_station": "Veuillez associer les stations à cet ensemble de données/sujet pour voir leurs données affichées sur la carte",
+    "from": "depuis",
+    "no_of_observations": "Observations des dernières 24 heures",
+    "no_of_files_published": "Fichiers publiés au cours des dernières 24 heures",
+    "does_not_exist": "Page non trouvée",
+    "no_discovery_datasets": "Les métadonnées de découverte ne contiennent pas d'ensembles de données",
+    "no_messages": "Aucun message trouvé",
+    "latest": "Données les plus récentes"
   },
   "station": {
     "map": "Plan de la station",
     "properties": "Propriétés de la station",
-    "wigos_id": "Identifiant la station WIGOS",
+    "wigos_station_identifier": "Identifiant la station WIGOS",
     "name": "Nom de la station",
-    "status": "État de fonctionnement"
+    "status": "l' histoire",
+    "latest": "Dernières valeurs",
+    "report": "Rapport de la station",
+    "limit": "Limite",
+    "search": "Rechercher des stations",
+    "search_hint": "Filtrer par nom ou identifiant de station WIGOS"
   },
   "chart": {
     "chart": "Graphique",
     "options": "Choix",
     "collection": "Collection",
     "observed_property": "Propriété observée",
-    "station": "Station"
+    "station": "Station",
+    "data_source": "Source de données",
+    "download": "Télécharger"
   },
   "table": {
     "table": "Tableau",
-    "time": "Heure du phénomène"
+    "result_time": "Temps de résultat",
+    "phenomenon_time": "Temps du phénomène"
+  },
+  "datasets": {
+    "topic": "Sujet",
+    "messages": "Messages",
+    "external-data-link": "Lien externe vers les données",
+    "license": "Licence",
+    "oafeat": "Observations",
+    "oarec": "Métadonnées",
+    "map": "Carte",
+    "explore": "Explorer",
+    "mqp": "PubSub",
+    "metadata_id": "Identifiant des métadonnées",
+    "filter_datasets": "Filtrer les ensembles de données par"
   }
 }

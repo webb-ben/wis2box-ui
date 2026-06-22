@@ -3,33 +3,76 @@
   "code": "es",
   "navigation": {
     "home": "Página Principal",
+    "datasets": "Conjunto de datos",
     "services": "Servicios de datos",
     "data": "Datos",
+    "external-data-link": "Enlace externo a los datos",
+    "license": "Licencia",
     "documentation": "Documentación"
+  },
+  "util": {
+    "token": "Llave",
+    "cancel": "Anular",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "settings": "Ajustes",
+    "cluster": "Trozo"
   },
   "footer": {
     "powered_by": "Desarrollada por"
   },
   "messages": {
-    "welcome": "¡Bienvenido al WIS 2.0 en caja!",
-    "no_observations_in_collection": " no tiene observaciones en la colección: "
+    "welcome": "¡Bienvenido al WIS 2.0 in a box!",
+    "no_observations_in_collection": " no tiene observaciones en la colección ",
+    "authorized": "Autorizada",
+    "not_authorized": "El conjunto de datos requiere autorización; Agregar un token de autorización",
+    "no_linked_collections": "no tiene colecciones vinculadas",
+    "how_to_link_station": "Asocie las estaciones con este conjunto de datos/tema para ver sus datos mostrados en el mapa.",
+    "from": "desde",
+    "no_of_observations": "Observaciones de las últimas 24 horas",
+    "no_of_files_published": "Archivos publicados en las últimas 24 horas",
+    "does_not_exist": "Página no encontrada",
+    "no_discovery_datasets": "Los metadatos de descubrimiento no contienen conjuntos de datos",
+    "no_messages": "No se encontraron mensajes",
+    "latest": "Datos más recientes"
   },
   "station": {
     "map": "Mapa de la estación",
     "properties": "Propiedades de la estación",
-    "wigos_id": "Identificador de la estación WIGOS",
+    "wigos_station_identifier": "Identificador de la estación WIGOS",
     "name": "Nombre de estación",
-    "status": "Estado operativo"
+    "status": "Registro",
+    "latest": "Últimas",
+    "report": "Informe de la estación",
+    "limit": "Límite",
+    "search": "Buscar estaciones",
+    "search_hint": "Filtrar por nombre o identificador de estación WIGOS"
   },
   "chart": {
     "chart": "Gráfico",
     "options": "Opciones",
     "collection": "Colección",
     "observed_property": "Propiedad observada",
-    "station": "Estación"
+    "station": "Estación",
+    "data_source": "Fuente de datos",
+    "download": "Descargar"
   },
   "table": {
     "table": "Tabla",
-    "time": "Tiempo de fenómeno"
+    "result_time": "Tiempo de resulto",
+    "phenomenon_time": "Tiempo de fenómeno"
+  },
+  "datasets": {
+    "topic": "Tema",
+    "messages": "Mensajes",
+    "external-data-link": "Enlace externo a los datos",
+    "license": "Licencia",
+    "oafeat": "Observaciones",
+    "oarec": "Metadatos",
+    "map": "Mapa",
+    "explore": "Explorar",
+    "mqp": "PubSub",
+    "metadata_id": "Identificador de metadatos",
+    "filter_datasets": "Filtrar conjuntos de datos por"
   }
 }

@@ -1,6 +1,5 @@
-<!-- ChartDialog is the main component for displaying station data
-    in greater detail. It contains a list of observed properties
-    as well as a table and plot of data for each property
+<!-- TempChartDialog will display a list of stations and displays the TempChart
+data for the selected datatime
 -->
 
 <template id="chart-dialog">
@@ -20,42 +19,40 @@
       <v-spacer />
 
       <v-card-subtitle>
-        {{ selectedStation.properties.id }}
+        Upper-Air observations for WIGOS-station-id={{ selectedStation.properties.id }} at lat,lon={{ getLatLon(selectedStation.geometry) }} 
       </v-card-subtitle>
 
       <v-progress-linear v-if="loading" indeterminate color="primary" />
 
-      <v-responsive height="590">
-        <DataViewer :datastreams="datastreams" :topic="topic" :selected-station="selectedStation" />
+      <v-responsive height="720">
+        <TempDataViewer :metadata_id="metadata_id" :selected-station="selectedStation" :messages="messages" />
       </v-responsive>
     </v-card>
   </v-overlay>
 </template>
 
 <script lang="ts">
-import type { Datastreams, Feature, ItemsResponse } from "@/lib/types";
-import DataViewer from "./data/DataViewer.vue";
+import type { Feature, ItemsResponse } from "@/lib/types";
+import TempDataViewer from "./data/TempDataViewer.vue";
 
 import { defineComponent, type PropType } from "vue";
 import { catchAndDisplayError } from "@/lib/errors";
-import { useGlobalStateStore } from "@/stores/global";
 import { fetchWithToken } from "@/lib/helpers";
 import { t } from "@/locales/i18n";
 
 export default defineComponent({
   components: {
-    DataViewer,
+    TempDataViewer,
   },
   data() {
     return {
       loading: false,
-      stations: {} as ItemsResponse,
       open: true,
-      datastreams: [] as Datastreams,
+      messages: [] as Feature[],
     };
   },
   props: {
-    topic: {
+    metadata_id: {
       type: String,
       required: true
     },
@@ -65,36 +62,38 @@ export default defineComponent({
     }
   },
   methods: {
-    async fetchDatastreams() {
+    getLatLon(geometry: Feature["geometry"]) {
+      if (geometry && geometry.type === "Point" && Array.isArray(geometry.coordinates)) {
+        const [lon, lat] = geometry.coordinates;
+        return `${lat.toFixed(4)},${lon.toFixed(4)}`;
+      }
+      return "N/A";
+    },
+    async fetchMessages() {
+      // fetch the last 10 messages for the selected station
       this.loading = true;
       try {
-        const url = `${window.VUE_APP_OAPI}/collections/${this.topic}/items?` + new URLSearchParams({
-          wigos_station_identifier: this.selectedStation.id
+        const url = `${window.VUE_APP_OAPI}/collections/messages/items?` + new URLSearchParams({
+          metadata_id: this.metadata_id,
+          q: "canonical",
+          wigos_station_identifier: this.selectedStation.id,
+          limit: "10",
+          sortby: "-datetime"
         });
         const response = await fetchWithToken(url);
 
         if (!response.ok) {
-          const errMsg = `${this.topic} ${t("messages")}`;
+          const errMsg = `messages ${t("messages")}`;
+          this.messages = [];
           return catchAndDisplayError(errMsg, url, response.status);
         }
 
         const data: ItemsResponse = await response.json();
         if (!data.features || data.numberMatched === 0) {
-          return catchAndDisplayError(t("chart.station") + t("messages.no_observations_in_collection"));
+          this.messages = [];
+          return catchAndDisplayError(t("chart.station") + t("messages.no_messages"));
         }
-
-        // There is no way in OAF to get the enumeration of all distinct values
-        // for a given property. So we need to just fetch a lot, then
-        // use a set to get all unique values
-        const propSet = new Set();
-
-        for (const item of data.features) {
-          if (propSet.has(item.properties.name)) {
-            continue;
-          }
-          this.datastreams.push(item.properties);
-          propSet.add(item.properties.name);
-        }
+        this.messages = data.features;
       } catch (error) {
         catchAndDisplayError(String(error));
       } finally {
@@ -103,13 +102,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    await this.fetchDatastreams();
-    const store = useGlobalStateStore();
-    // If no datastream is selected, select the first one so
-    // that the dialog opens with a plot already loaded
-    if (!store.selectedDatastream) {
-      store.setSelectedDatastream(this.datastreams[0]);
-    }
+    await this.fetchMessages();
   },
 });
 </script>
